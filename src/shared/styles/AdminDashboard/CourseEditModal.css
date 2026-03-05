@@ -1,0 +1,630 @@
+/* CourseEditModal.css */
+:root {
+  --primary-color: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #3b82f6;
+  --primary-bg: #eff6ff;
+  --success-color: #10b981;
+  --success-bg: #d1fae5;
+  --danger-color: #ef4444;
+  --danger-bg: #fee2e2;
+  --warning-color: #f59e0b;
+  --warning-bg: #fed7aa;
+  --purple-color: #8b5cf6;
+  --purple-bg: #ede9fe;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --card-bg: #ffffff;
+  --hover-bg: #f8fafc;
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Container */
+.modal-container {
+  background: var(--card-bg);
+  width: 100%;
+  max-width: 32rem;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal Header */
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background: linear-gradient(to right, var(--hover-bg), var(--card-bg));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color), var(--purple-color));
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-title span {
+  background: linear-gradient(135deg, var(--primary-color), var(--purple-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.course-code {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  background: var(--primary-bg);
+  padding: 0.25rem 0.75rem;
+  border-radius: 2rem;
+  margin-left: 0.5rem;
+  letter-spacing: 0.025em;
+}
+
+/* Close Button */
+.close-button {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.close-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.close-button:hover::before {
+  width: 40px;
+  height: 40px;
+}
+
+.close-button:hover {
+  background: var(--danger-bg);
+  color: var(--danger-color);
+  transform: rotate(90deg);
+}
+
+.close-button:active {
+  transform: rotate(90deg) scale(0.9);
+}
+   
+/* Modal Form */
+.modal-form {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-height: calc(90vh - 120px);
+  overflow-y: auto;
+}
+
+/* Form Group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.025em;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.form-label svg {
+  color: var(--primary-color);
+}
+
+/* Input Wrapper */
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  transition: color 0.2s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Form Inputs */
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  font-size: 0.9375rem;
+  transition: all 0.2s;
+  background: var(--card-bg);
+  outline: none;
+}
+
+.form-textarea {
+ width: 90%;
+}
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px;
+  padding-right: 2.5rem;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-input:focus + .input-icon,
+.form-select:focus + .input-icon,
+.form-textarea:focus + .input-icon {
+  color: var(--primary-color);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* Grid Layout for Form Groups */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: 0.5rem;
+}
+
+.cancel-button,
+.save-button {
+  flex: 1;
+  padding: 0.875rem;
+  border-radius: 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cancel-button {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.save-button {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.cancel-button::before,
+.save-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.cancel-button:hover::before {
+  width: 200px;
+  height: 200px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.save-button:hover::before {
+  width: 200px;
+  height: 200px;
+}
+
+.cancel-button:hover {
+  background: var(--hover-bg);
+  border-color: var(--text-muted);
+  transform: translateY(-2px);
+}
+
+.save-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+}
+
+.cancel-button:active,
+.save-button:active {
+  transform: translateY(0);
+}
+
+.save-button:disabled {
+  background: linear-gradient(135deg, #94a3b8, #64748b);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.save-button:disabled::before {
+  display: none;
+}
+
+.save-button svg {
+  transition: transform 0.3s;
+}
+
+.save-button:hover:not(:disabled) svg {
+  transform: scale(1.1) rotate(-10deg);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Helper Text */
+.helper-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Teacher Option Styling */
+.teacher-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+.teacher-id {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: monospace;
+}
+
+/* Form Divider */
+.form-divider {
+  margin: 0.5rem 0;
+  position: relative;
+  text-align: center;
+}
+
+.form-divider::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+}
+
+.form-divider span {
+  background: var(--card-bg);
+  padding: 0 1rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .modal-container {
+    max-width: 100%;
+    margin: 0.5rem;
+    border-radius: 1rem;
+  }
+  
+  .modal-header {
+    padding: 1rem;
+  }
+  
+  .header-title {
+    font-size: 1.25rem;
+  }
+  
+  .course-code {
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+  }
+  
+  .modal-form {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+  
+  .cancel-button,
+  .save-button {
+    padding: 0.75rem;
+  }
+}
+
+/* Tablet Adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .modal-container {
+    max-width: 36rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card-bg: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-color: #334155;
+    --hover-bg: #0f172a;
+    --primary-bg: #1e3a8a;
+    --overlay-bg: rgba(0, 0, 0, 0.7);
+  }
+  
+  .modal-container {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .form-input,
+  .form-select,
+  .form-textarea {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+  }
+  
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    background: var(--card-bg);
+  }
+  
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  }
+  
+  .cancel-button {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+  }
+  
+  .cancel-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .modal-overlay,
+  .modal-container,
+  .close-button,
+  .cancel-button,
+  .save-button,
+  .save-button svg,
+  .close-button::before,
+  .cancel-button::before,
+  .save-button::before {
+    animation: none;
+    transition: none;
+  }
+  
+  .modal-container {
+    animation: fadeIn 0.1s ease-out;
+  }
+  
+  .close-button:hover,
+  .save-button:hover,
+  .cancel-button:hover {
+    transform: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .modal-overlay {
+    position: static;
+    background: none;
+    backdrop-filter: none;
+    padding: 0;
+  }
+  
+  .modal-container {
+    box-shadow: none;
+    border: 1px solid #000;
+    max-width: 100%;
+  }
+  
+  .action-buttons {
+    display: none;
+  }
+}
+
+/* Custom Scrollbar for Modal Form */
+.modal-form::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-form::-webkit-scrollbar-track {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+.modal-form::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary-color), var(--purple-color));
+  border-radius: 3px;
+}
+
+.modal-form::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Focus Visible for Accessibility */
+.form-input:focus-visible,
+.form-select:focus-visible,
+.form-textarea:focus-visible,
+.close-button:focus-visible,
+.cancel-button:focus-visible,
+.save-button:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Status Colors in Select Option */
+select option[value="draft"] {
+  color: var(--text-muted);
+}
+
+select option[value="pending"] {
+  color: var(--warning-color);
+}
+
+select option[value="published"] {
+  color: var(--success-color);
+}
+
+select option[value="archived"] {
+  color: var(--danger-color);
+}
+
+/* Tag Input Styling */
+.tags-hint {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  padding-left: 0.5rem;
+}
+
+.tags-hint::before {
+  content: '💡';
+  margin-right: 0.25rem;
+  opacity: 0.7;
+}

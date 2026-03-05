@@ -1,0 +1,319 @@
+/* CourseAddModal.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-out;
+  width: 100%;
+}
+
+.modal-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 550px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Custom scrollbar for modal container */
+.modal-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.modal-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.header-title svg {
+  color: white;
+  stroke-width: 2;
+}
+
+.modal-header button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.modal-header button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.modal-form {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
+  cursor: pointer;
+}
+
+.form-select option {
+  background: #764ba2;
+  color: white;
+  padding: 0.5rem;
+}
+
+.save-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: white;
+  color: #764ba2;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.save-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background: #f8f9fa;
+}
+
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.save-button svg {
+  transition: transform 0.2s ease;
+}
+
+.save-button:hover:not(:disabled) svg {
+  transform: scale(1.1);
+}
+
+/* Loading state */
+.modal-form p {
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.125rem;
+  opacity: 0.9;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .modal-container {
+    max-width: 100%;
+    margin: 1rem;
+    border-radius: 16px;
+  }
+
+  .modal-header {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .header-title {
+    font-size: 1.25rem;
+  }
+
+  .modal-form {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .form-textarea {
+    min-height: 100px;
+  }
+
+  .save-button {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .form-input,
+  .form-select,
+  .form-textarea,
+  .save-button {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .modal-header button:hover {
+    transform: none;
+  }
+}
+
+/* Landscape mode on mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+  .modal-container {
+    max-height: 85vh;
+  }
+
+  .modal-form {
+    padding: 1rem 1.5rem;
+  }
+
+  .form-textarea {
+    min-height: 80px;
+  }
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+  .modal-container {
+    background: linear-gradient(135deg, #5a5fcf 0%, #6b3f8f 100%);
+  }
+}
+
+/* Loading spinner for submit button */
+.save-button:disabled {
+  position: relative;
+  color: transparent;
+}
+
+.save-button:disabled svg {
+  opacity: 0;
+}
+
+.save-button:disabled::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #764ba2;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
