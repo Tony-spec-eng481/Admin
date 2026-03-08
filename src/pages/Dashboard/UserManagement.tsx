@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import AdminUserRegistration from "./AdminUserRegistration";
 import { useNavigate } from "react-router-dom";
-import "../../shared/styles/AdminDashboard/UserManagement.css";
+import "../styles/UserManagement.css";
 
 interface UserData {
   id: string;

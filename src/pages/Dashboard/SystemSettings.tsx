@@ -10,7 +10,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import toast from "react-hot-toast";    
-import "../../shared/styles/AdminDashboard/SystemSettings.css";
+import "../styles/SystemSettings.css";
 
 interface Setting {
   key: string;

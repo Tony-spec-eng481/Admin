@@ -9,7 +9,7 @@ import {
 } from "lucide-react";  
 import { axiosInstance as api } from '../../shared/index';
 import toast from "react-hot-toast";
-import "../../shared/styles/AdminDashboard/StatsOverview.css"; // Import the CSS file
+import "../styles/StatsOverview.css"; // Import the CSS file
 
 interface Stats {
   students: number;

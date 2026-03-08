@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { axiosInstance as api } from '../../shared/index';
 import { TrendingUp, CheckCircle, Search, Filter, Mail } from "lucide-react";
 import toast from "react-hot-toast";
-import "../../shared/styles/AdminDashboard/StudentManagement.css";
+import "../styles/StudentManagement.css";
 
 interface StudentStats {
   progress: number;

@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import { axiosInstance as api } from '../../shared/index';
+import { axiosInstance as api } from "../../shared/index";
+import StudentAnalytics from "./StudentAnalytics";
+import TeacherAnalytics from "./TeacherAnalytics";
 import {
   PieChart,
   TrendingUp,
   Users,
   BookOpen,
-  Award,
   Calendar,
+  ArrowLeft,
 } from "lucide-react";
 import toast from "react-hot-toast";
-import "../../shared/styles/AdminDashboard/AnalyticsDashboard.css";
+import "../styles/AnalyticsDashboard.css";
 
 interface MonthlyEnrollment {
   month: string;
@@ -17,6 +19,8 @@ interface MonthlyEnrollment {
 }
 
 interface AnalyticsData {
+  totalUsers: number;
+  totalCourses: number;
   totalEnrollments: number;
   completedLessons: number;
   engagementRate: number;
@@ -24,10 +28,15 @@ interface AnalyticsData {
   growth?: number;
 }
 
-const AnalyticsDashboard = () => {
+const AnalyticsDashboard = ({
+  onNavigate,
+}: {
+  onNavigate: (tab: string) => void;
+}) => {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+  const [activeSubview, setActiveSubview] = useState<"overview" | "student" | "teacher">("overview");
 
   useEffect(() => {
     const fetchAnalytics = async () => {
@@ -53,76 +62,116 @@ const AnalyticsDashboard = () => {
     return new Intl.NumberFormat().format(num);
   };
 
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   if (loading) {
     return (
-      <div className="analytics-loading">
-        <div className="loading-spinner-large"></div>
-        <p className="loading-text">Loading Analytics...</p>
+      <div className="analytics-loading-container">
+        <div className="analytics-spinner"></div>
       </div>
     );
   }
 
   return (
-    <div className="analytics-container">
-      <div className="analytics-space">
+    <div className="analytics-dashboard-container">
+      <div className="analytics-dashboard-wrapper">
+        {/* <button onClick={handleGoBack} className="analytics-back-button">
+          <ArrowLeft size={20} />
+          <span>Back</span>
+        </button> */}
+
+        {/* Analytics Sub-nav */}
+        <div className="analytics-sub-nav">
+          <button
+            onClick={() => setActiveSubview("student")}
+            className={`analytics-nav-button analytics-nav-button-primary ${activeSubview === "student" ? "active" : ""}`}
+          >
+            <Users size={18} /> Student Analytics
+          </button>
+          <button
+            onClick={() => setActiveSubview("teacher")}
+            className={`analytics-nav-button analytics-nav-button-secondary ${activeSubview === "teacher" ? "active" : ""}`}
+          >
+            <Users size={18} /> Teacher Analytics
+          </button>
+        </div>
+
+        {activeSubview === "student" && (
+          <StudentAnalytics onBack={() => setActiveSubview("overview")} />
+        )}
+        {activeSubview === "teacher" && (
+          <TeacherAnalytics onBack={() => setActiveSubview("overview")} />
+        )}
+
+        {activeSubview === "overview" && (
+          <>
+
         {/* Stats Grid */}
-        <div className="stats-grid">
-          <div className="stat-card enrollment">
-            <div className="stat-header">
-              <div className="stat-icon icon-blue">
+        <div className="analytics-stats-grid">
+          <div className="analytics-stat-card">
+            <div className="analytics-stat-header">
+              <div className="analytics-stat-icon">
                 <Users size={24} />
               </div>
-              <div>
-                <p className="stat-label">Total Enrollments</p>
-                <h3 className="stat-value">
+              <div className="analytics-stat-info">
+                <p className="analytics-stat-label">Total Users</p>
+                <h3 className="analytics-stat-value">
+                  {formatNumber(data?.totalUsers || 0)}
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div className="analytics-stat-card">
+            <div className="analytics-stat-header">
+              <div className="analytics-stat-icon">
+                <BookOpen size={24} />
+              </div>
+              <div className="analytics-stat-info">
+                <p className="analytics-stat-label">Total Courses</p>
+                <h3 className="analytics-stat-value">
+                  {formatNumber(data?.totalCourses || 0)}
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div className="analytics-stat-card">
+            <div className="analytics-stat-header">
+              <div className="analytics-stat-icon">
+                <Users size={24} />
+              </div>
+              <div className="analytics-stat-info">
+                <p className="analytics-stat-label">Total Enrollments</p>
+                <h3 className="analytics-stat-value">
                   {formatNumber(data?.totalEnrollments || 0)}
                 </h3>
               </div>
             </div>
-            <div className="stat-footer">
-              <span className="trend-up">
-                <TrendingUp size={16} />
-                +12% from last month
-              </span>
+            <div className="analytics-stat-trend">
+              <TrendingUp size={16} />
+              Real-time synchronization
             </div>
           </div>
 
-          <div className="stat-card lessons">
-            <div className="stat-header">
-              <div className="stat-icon icon-green">
-                <Award size={24} />
-              </div>
-              <div>
-                <p className="stat-label">Completed Lessons</p>
-                <h3 className="stat-value">
-                  {formatNumber(data?.completedLessons || 0)}
-                </h3>
-              </div>
-            </div>
-            <div className="stat-footer">
-              <span className="info-text">
-                <BookOpen size={16} />
-                Across all courses
-              </span>
-            </div>
-          </div>
-
-          <div className="stat-card engagement">
-            <div className="stat-header">
-              <div className="stat-icon icon-purple">
+          <div className="analytics-stat-card analytics-stat-card-engagement">
+            <div className="analytics-stat-header">
+              <div className="analytics-stat-icon">
                 <PieChart size={24} />
               </div>
-              <div>
-                <p className="stat-label">Engagement Rate</p>
-                <h3 className="stat-value">
+              <div className="analytics-stat-info">
+                <p className="analytics-stat-label">Engagement</p>
+                <h3 className="analytics-stat-value">
                   {Math.round((data?.engagementRate || 0) * 100)}%
                 </h3>
               </div>
             </div>
-            <div className="progress-container">
-              <div className="progress-bar">
+            <div className="analytics-progress-container">
+              <div className="analytics-progress-track">
                 <div
-                  className="progress-fill fill-purple"
+                  className="analytics-progress-fill"
                   style={{
                     width: `${Math.min((data?.engagementRate || 0) * 100, 100)}%`,
                   }}
@@ -131,56 +180,56 @@ const AnalyticsDashboard = () => {
             </div>
           </div>
         </div>
-  
+
         {/* Chart Card */}
-        <div className="chart-card">
-          <div className="chart-header">
-            <h2 className="chart-title">Monthly Enrollment Trends</h2>
-            <div className="chart-legend">
-              <span className="legend-item">
-                <span
-                  className="legend-color"
-                  style={{ background: "#2563eb" }}
-                ></span>
-                <span>2026 Enrollments</span>
+        <div className="analytics-chart-card">
+          <div className="analytics-chart-header">
+            <h2 className="analytics-chart-title">Monthly Enrollment Trends</h2>
+            <div className="analytics-chart-legend">
+              <span className="analytics-legend-item">
+                <span className="analytics-legend-dot"></span>
+                Current Enrollments
               </span>
               {selectedMonth && (
-                <span className="legend-item">
-                  <Calendar size={14} />
-                  <span>Selected: {selectedMonth}</span>
+                <span className="analytics-selected-month">
+                  <Calendar size={14} /> Selected: {selectedMonth}
                 </span>
               )}
             </div>
           </div>
 
-          <div className="chart-container">
-            {data?.monthlyEnrollments.map((entry) => {
+          <div className="analytics-chart-container">
+            {data?.monthlyEnrollments?.map((entry) => {
               const maxValue = getMaxEnrollment();
               const height = (entry.count / maxValue) * 100;
 
               return (
                 <div
                   key={entry.month}
-                  className="chart-bar-wrapper"
+                  className="analytics-chart-bar-wrapper"
                   onMouseEnter={() => setSelectedMonth(entry.month)}
                   onMouseLeave={() => setSelectedMonth(null)}
                 >
-                  <div className="bar-container">
+                  <div className="analytics-chart-bar-container">
                     <div
-                      className="chart-bar"
+                      className="analytics-chart-bar"
                       style={{ height: `${Math.max(height, 4)}%` }}
                     >
-                      <span className="bar-tooltip">
+                      <div className="analytics-chart-tooltip">
                         {entry.count} enrollments
-                      </span>
+                      </div>
                     </div>
                   </div>
-                  <span className="month-label">{entry.month}</span>
+                  <span className="analytics-chart-label">
+                    {entry.month.substring(0, 3)}
+                  </span>
                 </div>
               );
             })}
           </div>
         </div>
+          </>
+        )}
       </div>
     </div>
   );

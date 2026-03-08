@@ -11,7 +11,7 @@ import {
   User,
 } from "lucide-react";
 import toast from "react-hot-toast";
-import "../../shared/styles/AdminDashboard/ContentManagement.css";
+import "../styles/ContentManagement.css";
 
 interface PendingCourse {
   id: string;

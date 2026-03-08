@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { axiosInstance as api } from '../../shared/index';
 import { Bell, Plus, Trash2, Calendar, Target, X, Send, MessageCircle } from "lucide-react";
 import toast from "react-hot-toast";
-import "../../shared/styles/AdminDashboard/Announcements.css";
+import "../styles/Announcements.css";
 
 interface Announcement {
   id: string;

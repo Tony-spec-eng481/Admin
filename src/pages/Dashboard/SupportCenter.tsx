@@ -10,7 +10,7 @@ import {
   Calendar,
 } from "lucide-react";
 import toast from "react-hot-toast";
-import "../../shared/styles/AdminDashboard/SupportCenter.css";
+import "../styles/SupportCenter.css";
 
   interface Ticket {
   id: string;

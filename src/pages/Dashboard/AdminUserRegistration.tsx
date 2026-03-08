@@ -9,7 +9,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import toast from "react-hot-toast";
-import "../../shared/styles/AdminDashboard/UserRegistration.css";
+import "../styles/UserRegistration.css";
 
 interface Props {
   onClose: () => void;

@@ -8,7 +8,7 @@ import { Search, Plus, BookOpen } from "lucide-react";
 import CourseEditModal from "./CourseEditModal";
 import CourseAddModal from "./CourseAddModal";
 import { CourseCard } from "../../shared/index";
-import "../../shared/styles/AdminDashboard/CourseManagement.css";
+import "../styles/CourseManagement.css";
 
 interface Course {
   id: string;

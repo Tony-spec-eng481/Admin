@@ -19,14 +19,16 @@ import { useAuth } from "../../shared/index";
 import StatsOverview from "./StatsOverview";
 import UserManagement from "./UserManagement";
 import CourseManagement from "./CourseManagement";
-// import AnalyticsDashboard from "./AnalyticsDashboard";
-import SupportCenter from "./SupportCenter";
-import SystemSettings from "./SystemSettings";
 import ContentManagement from "./ContentManagement";
 import StudentManagement from "./StudentManagement";
+import StudentAnalytics from "./StudentAnalytics";
+import TeacherAnalytics from "./TeacherAnalytics";
+import AnalyticsDashboard from "./AnalyticsDashboard";
+import SupportCenter from "./SupportCenter";
+import SystemSettings from "./SystemSettings";
 import Announcements from "./Announcements";
 import Departments from "./Departments";
-import "../../shared/styles/AdminDashboard/AdminDashboard.css";
+import "../styles/AdminDashboard.css";
 
 const AdminDashboard = () => {
   const { user, logout } = useAuth();
@@ -43,7 +45,7 @@ const AdminDashboard = () => {
     },
     { id: "courses", label: "Course Management", icon: <BookOpen size={20} /> },
     { id: "content", label: "Content Approvals", icon: <Shield size={20} /> },
-    // { id: "analytics", label: "Analytics", icon: <TrendingUp size={20} /> },
+    { id: "analytics", label: "Analytics", icon: <TrendingUp size={20} /> },
     { id: "announcements", label: "Announcements", icon: <Bell size={20} /> },
     { id: "support", label: "Support & Help", icon: <HelpCircle size={20} /> },
     { id: "settings", label: "System Config", icon: <Settings size={20} /> },
@@ -166,7 +168,9 @@ const AdminDashboard = () => {
 
             {activeTab === "content" && <ContentManagement />}
 
-            {/* {activeTab === "analytics" && <AnalyticsDashboard />} */}
+            {activeTab === "analytics" && <AnalyticsDashboard onNavigate={(tab: string) => setActiveTab(tab)} />}
+            {activeTab === "student-analytics" && <StudentAnalytics />}
+            {activeTab === "teacher-analytics" && <TeacherAnalytics />}
 
             {activeTab === "announcements" && <Announcements />}
 

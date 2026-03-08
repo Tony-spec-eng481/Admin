@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { axiosInstance as api } from "../../shared/index";
 import { Save, X, Layers, BookOpen, Tag, Archive } from "lucide-react";
 import toast from "react-hot-toast";
-import "../../shared/styles/AdminDashboard/CourseEditModal.css";
+import "../styles/CourseEditModal.css";
 interface Department {
   id: string;
   name: string;
