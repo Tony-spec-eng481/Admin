@@ -6,6 +6,9 @@ import {
   AlertCircle,
   TrendingUp,
   TrendingDown,
+  Video,
+  FileText,
+  Mic,
 } from "lucide-react";  
 import { axiosInstance as api } from '../../shared/index';
 import toast from "react-hot-toast";
@@ -16,6 +19,9 @@ interface Stats {
   teachers: number;
   courses: number;
   pendingVerifications: number;
+  totalVideos: number;
+  totalNotes: number;
+  totalAudio: number;
 }
 
 interface StatCardProps {
@@ -174,6 +180,27 @@ const StatsOverview = () => {
         icon={<AlertCircle />}
         color="orange"
         badge="Needs Review"
+      />
+      <StatCard
+        title="Total Videos"
+        value={stats?.totalVideos || 0}
+        icon={<Video />}
+        color="blue"
+        badge="Lectures"
+      />
+      <StatCard
+        title="Total Notes"
+        value={stats?.totalNotes || 0}
+        icon={<FileText />}
+        color="purple"
+        badge="Resources"
+      />
+      <StatCard
+        title="Total Audio"
+        value={stats?.totalAudio || 0}
+        icon={<Mic />}
+        color="orange"
+        badge="Podcasts"
       />
     </div>
   );

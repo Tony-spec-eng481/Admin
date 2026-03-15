@@ -16,8 +16,8 @@ interface Unit {
   topics: any[];
   assigned_teacher?: {
     id: string;
-    name: string;
-  } | null;
+    name: string;    
+  } | null;    
 }
 
 const CourseUnits = () => {
